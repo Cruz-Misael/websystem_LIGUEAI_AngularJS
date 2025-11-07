@@ -1,0 +1,246 @@
+.fatura-detalhe {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', Arial, sans-serif;
+  color: #333;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 3px solid #D32F2F;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.header img {
+  height: 100px;
+}
+
+.header h4 {
+  margin: 0;
+  color: #2b1f1f;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.header p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Título principal */
+h2 {
+  text-align: center;
+  color: #D32F2F;
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Caixas de informações */
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.info-box {
+  flex: 1;
+  min-width: 280px;
+  background: #FFF8E1; /* leve amarelo de fundo */
+  border: 1px solid #FFB300;
+  border-radius: 12px;
+  padding: 20px;
+  transition: box-shadow 0.3s;
+}
+
+.info-box:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.info-box h3 {
+  margin-top: 0;
+  color: #D32F2F;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #FFB300;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+/* Tabelas */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.table th {
+  background: #FFD54F;
+  color: #D32F2F;
+  font-weight: 600;
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background: #FFF8E1;
+}
+
+/* Totais */
+.total {
+  text-align: right;
+  font-weight: regular;
+  font-size: small;
+  color: #000000;
+  margin-top: 10px;
+}
+
+/* Mensagem de loading */
+.loading {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 50px;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #eee;
+  border-top: 3px solid #D32F2F;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Rodapé */
+.footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.fatura-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.btn {
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: var(--sebratel-red);
+  color: #000000;
+}
+.btn-primary:hover {
+  background: #b81218;
+}
+.btn-secondary {
+  background: var(--gray-light);
+  border: 1px solid var(--gray-border);
+  color: var(--text-dark);
+}
+.btn-secondary:hover {
+  background: #e9e9e9;
+}
+
+
+/* === ESTILOS DE IMPRESSÃO === */
+@media print {
+  /* Remove margens e sombras da página */
+  body {
+    background: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Remove os botões e quaisquer elementos desnecessários */
+  .fatura-actions,
+  button,
+  .btn,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Centraliza e otimiza a fatura */
+  .fatura-detalhe {
+    box-shadow: none;
+    border: none;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 20px;
+    page-break-inside: avoid;
+  }
+
+  /* Ajusta as fontes para leitura em papel */
+  .fatura-detalhe,
+  .fatura-detalhe * {
+    font-size: 11pt;
+    color: #000 !important;
+  }
+
+  /* Garante que as tabelas fiquem bem distribuídas */
+  table {
+    page-break-inside: auto;
+    border-collapse: collapse;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+
+  /* Remove cores de fundo intensas */
+  .table th {
+    background: #f2f2f2 !important;
+    color: #000 !important;
+  }
+
+  .info-box {
+    background: none !important;
+    border: 1px solid #ccc !important;
+  }
+
+  /* Remove o rodapé duplicado do navegador */
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+}

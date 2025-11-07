@@ -1,0 +1,69 @@
+<div *ngIf="loading" class="loading-container">
+  <div class="spinner"></div>
+  <p>Carregando faturas...</p>
+</div>
+
+<div *ngIf="!loading" class="painel-faturas">
+  <!-- Cabeçalho -->
+  <div class="header">
+    <img src="assets/logo_sebratel.png" alt="Sebratel" />
+    <div>
+      <h2>Faturas Sebratel</h2>
+      <p>Visualize as faturas emitidas pela Sebratel Tecnologia</p>
+    </div>
+  </div>
+
+  <!-- 🔍 Filtros -->
+  <div class="filtros-container">
+    <input
+      type="text"
+      placeholder="Pesquisar cliente..."
+      [(ngModel)]="filtroCliente"
+      (input)="filtrarFaturas()"
+    />
+
+    <select [(ngModel)]="filtroMes" (change)="filtrarFaturas()">
+      <option value="">Todos os meses</option>
+      <option *ngFor="let m of meses" [value]="m.valor">{{ m.nome }}</option>
+    </select>
+
+    <select [(ngModel)]="filtroAno" (change)="filtrarFaturas()">
+      <option value="">Todos os anos</option>
+      <option *ngFor="let a of anos" [value]="a">{{ a }}</option>
+    </select>
+  </div>
+
+  <!-- Lista de faturas -->
+  <div class="faturas-lista">
+    <div
+      class="fatura-card"
+      *ngFor="let f of faturasFiltradas"
+      (click)="abrirDetalhe(f)"
+    >
+      <div class="fatura-top">
+        <h3>{{ f.clientName }}</h3>
+        <span class="status" [ngClass]="f.status?.toLowerCase()">
+          {{ f.status }}
+        </span>
+      </div>
+
+      <div class="fatura-info">
+        <p><strong>📅 Emissão:</strong> {{ f.emissionDate | date:'dd/MM/yyyy' }}</p>
+        <p><strong>🧾 Protocolo:</strong> {{ f.protocol }}</p>
+      </div>
+
+      <div class="fatura-footer">
+        <button class="btn-detalhes">Ver Detalhes</button>
+      </div>
+    </div>
+
+    <div *ngIf="faturasFiltradas.length === 0" class="sem-resultados">
+      Nenhuma fatura encontrada.
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <div class="footer">
+    © Sebratel Tecnologia — {{ today | date:'dd/MM/yyyy HH:mm' }}
+  </div>
+</div>
