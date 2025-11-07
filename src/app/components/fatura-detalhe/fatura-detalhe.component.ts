@@ -46,16 +46,19 @@ export class FaturaDetalheComponent implements OnInit {
   getValorTotal(): number {
     if (!this.fatura) return 0;
     const valorAssinatura = 29.9;
-    const valorLigacoes = this.fatura.billed_items?.[0]?.measurements
-      ?.reduce((total: number, item: any) => total + (item.monetary_value || 0), 0) || 0;
+    const valorLigacoes = this.fatura.detailedPlanLevels
+      ?.reduce((total: number, item: any) => total + (item.value || 0), 0) || 0;
     return valorAssinatura + valorLigacoes;
-  }
+  } 
+
 
   getValorMinutagem(): number {
     if (!this.fatura) return 0;
-    return this.fatura.billed_items?.[0]?.measurements
-      ?.reduce((total: number, item: any) => total + (item.monetary_value || 0), 0) || 0;
-  }
+    const valorLigacoes = this.fatura.detailedPlanLevels
+      ?.reduce((total: number, item: any) => total + (item.value || 0), 0) || 0;
+    return valorLigacoes;
+  } 
+
 
   formatarDuracao(segundos: number): string {
     if (!segundos && segundos !== 0) return '-';
